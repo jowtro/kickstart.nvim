@@ -8,7 +8,6 @@ return {
       -- add accept with tab
       -- add reject with shift-tab
       vim.api.nvim_set_keymap('i', '<Tab>', 'copilot#Accept("<Tab>")', { expr = true, silent = true }) -- Map Tab to accept suggestion
-      vim.api.nvim_set_keymap('i', '<S-Tab>', 'copilot#Reject("<CR>")', { expr = true, silent = true }) -- Map Ctrl-J to accept suggestion
     end,
   },
 }
