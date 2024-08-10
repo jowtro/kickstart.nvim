@@ -575,12 +575,29 @@ require('lazy').setup({
       local servers = {
         --clangd = {},
         --gopls = {},
-        pyright = {
+        pylsp = {
+          -- WARN: in order to make this work you need to install the python packages into your global pip as follows:
+          -- pip install python-lsp-server black pylint pylsp-mypy jedi python-lsp-isort python-lsp-ruff
+
           settings = {
-            python = {
-              analysis = {
-                autoSearchPaths = true,
-                typeCheckingMode = 'strict',
+            pylsp = {
+              plugins = {
+                -- formatter options
+                black = { enabled = true },
+                -- linter options
+                pylint = { enabled = false, executable = 'pylint' },
+                --ruff = { enabled = true, executable = 'ruff' },
+                -- type checker
+                -- type checker
+                pylsp_mypy = {
+                  enabled = true,
+                  report_progress = true,
+                  live_mode = false,
+                },
+                -- auto-completion options
+                jedi_completion = { fuzzy = true },
+                -- import sorting
+                pyls_isort = { enabled = true },
               },
             },
           },
@@ -627,7 +644,7 @@ require('lazy').setup({
       local ensure_installed = vim.tbl_keys(servers or {})
       vim.list_extend(ensure_installed, {
         'stylua', -- Used to format Lua code
-        'pyright', -- LSP for python
+        'pylsp', -- LSP for python
         'ruff', -- linter for python (includes flake8, pep8, etc.)
         'debugpy', -- debugger
         'black', -- formatter
