@@ -89,7 +89,7 @@ P.S. You can delete this when you're done too. It's your config now! :)
 --  NOTE: Must happen before plugins are loaded (otherwise wrong leader will be used)
 vim.g.mapleader = ' '
 vim.g.maplocalleader = ' '
-
+vim.g.encoding = 'UTF-8'
 -- Set to true if you have a Nerd Font installed and selected in the terminal
 vim.g.have_nerd_font = true
 
@@ -573,20 +573,20 @@ require('lazy').setup({
       --  - settings (table): Override the default settings passed when initializing the server.
       --        For example, to see the options for `lua_ls`, you could go to: https://luals.github.io/wiki/settings/
       local servers = {
-        clangd = {},
+        --clangd = {},
         --gopls = {},
-        --pyright = {},
-        -- clangd = {},
-        -- gopls = {},
         pyright = {
-          python = {
-            analysis = {
-              typeCheckingMode = 'off',
-              autoSearchPaths = true,
-              useLibraryCodeForTypes = true,
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                typeCheckingMode = 'strict',
+              },
             },
           },
         },
+        -- clangd = {},
+        -- gopls = {},
         jsonls = {},
         --rust_analyzer = {},
         -- ... etc. See `:help lspconfig-all` for a list of all the pre-configured LSPs
