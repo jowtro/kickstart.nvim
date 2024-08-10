@@ -5,13 +5,6 @@
 -- Primarily focused on configuring the debugger for Go, but can
 -- be extended to other languages as well. That's why it's called
 -- kickstart.nvim and not kitchen-sink.nvim ;)
--- debug.lua
---
--- Shows how to use the DAP plugin to debug your code.
---
--- Primarily focused on configuring the debugger for Go, but can
--- be extended to other languages as well. That's why it's called
--- kickstart.nvim and not kitchen-sink.nvim ;)
 
 return {
   -- NOTE: Yes, you can install new plugins here!
@@ -21,14 +14,13 @@ return {
   dependencies = {
     -- Creates a beautiful debugger UI
     'rcarriga/nvim-dap-ui',
-    -- Required dependency for nvim-dap-ui
-    'nvim-neotest/nvim-nio',
+
     -- Installs the debug adapters for you
     'williamboman/mason.nvim',
     'jay-babu/mason-nvim-dap.nvim',
 
     -- Add your own debuggers here
-    'leoluz/nvim-dap-go',
+    -- 'leoluz/nvim-dap-go',
     'mfussenegger/nvim-dap-python',
   },
 
@@ -86,10 +78,8 @@ return {
     vim.api.nvim_set_hl(0, 'green', { fg = '#9ece6a', bg = '#FFFF00' })
     vim.api.nvim_set_hl(0, 'yellow', { fg = '#FAFA33', bg = '#FFFa05' })
     vim.api.nvim_set_hl(0, 'black', { fg = '#000000', bg = '#FFFF00' })
-    --vim.fn.sign_define('DapBreakpoint', { text = '🐞', texthl = 'blue', linehl = 'black', numhl = 'yellow' })
-    --vim.fn.sign_define('DapStopped', { text = '', texthl = 'green', linehl = 'black',numhl = 'yellow'  })
-    vim.fn.sign_define('DapBreakpoint', { text = '🐞', texthl = 'blue', linehl = '', numhl = '' })
-    vim.fn.sign_define('DapStopped', { text = '', texthl = 'green', linehl = '', numhl = '' })
+    vim.fn.sign_define('DapBreakpoint', { text = '🐞', texthl = 'blue', linehl = 'black', numhl = 'yellow' })
+    vim.fn.sign_define('DapStopped', { text = '', texthl = 'green', linehl = 'black', numhl = 'yellow' })
 
     -- Dap UI setup
     -- For more information, see |:help nvim-dap-ui|
@@ -116,6 +106,7 @@ return {
     dap.listeners.after.event_initialized['dapui_config'] = dapui.open
     dap.listeners.before.event_terminated['dapui_config'] = dapui.close
     dap.listeners.before.event_exited['dapui_config'] = dapui.close
+
     -- Install python specific config can be done below way as well instead of handler
     --[[
     require('dap-python').setup() -- Debug with default settings.
