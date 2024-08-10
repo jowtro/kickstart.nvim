@@ -70,13 +70,13 @@ return {
       dap.continue()
       vim.cmd.Neotree 'toggle' -- this will toggle the Neo tree during debugging
     end)
-    vim.keymap.set('n', '<F11>', dap.step_into)
-    vim.keymap.set('n', '<F10>', dap.step_over)
-    vim.keymap.set('n', '<S-F11>', dap.step_out)
-    vim.keymap.set('n', '<F9>', dap.toggle_breakpoint)
+    vim.keymap.set('n', '<F11>', dap.step_into, { desc = 'DEBUG: Step into' })
+    vim.keymap.set('n', '<F10>', dap.step_over, { desc = 'DEBUG: Step over' })
+    vim.keymap.set('n', '<S-F11>', dap.step_out, { desc = 'DEBUG: Step out' })
+    vim.keymap.set('n', '<F9>', dap.toggle_breakpoint, { desc = 'DEBUG: Toggle breakpoint' })
     vim.keymap.set('n', '<leader>B', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
-    end)
+    end, { desc = 'DEBUG: Set breakpoint condition' })
 
     -- toggle to see last session result. Without this ,you can't see session output in case of unhandled exception.
     vim.keymap.set('n', '<F7>', dapui.toggle)
