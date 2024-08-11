@@ -582,6 +582,8 @@ require('lazy').setup({
           settings = {
             pylsp = {
               plugins = {
+                rope_autoimport = { enabled = true },
+                rope_completion = { enabled = true },
                 -- formatter options
                 black = { enabled = true },
                 -- linter options
@@ -740,6 +742,8 @@ require('lazy').setup({
       --  into multiple repos for maintenance purposes.
       'hrsh7th/cmp-nvim-lsp',
       'hrsh7th/cmp-path',
+      'hrsh7th/cmp-buffer',
+      'hrsh7th/cmp-cmdline',
     },
     config = function()
       -- See `:help cmp`
@@ -815,6 +819,7 @@ require('lazy').setup({
           },
           { name = 'nvim_lsp' },
           { name = 'luasnip' },
+          { name = 'buffer' },
           { name = 'path' },
         },
       }
