@@ -1,3 +1,6 @@
+--+-------------------------------------------------+
+--| A | B | C                             X | Y | Z |
+--+-------------------------------------------------+
 return {
   'nvim-lualine/lualine.nvim',
   dependencies = { 'nvim-tree/nvim-web-devicons' },
