@@ -35,7 +35,38 @@ return {
   config = function()
     local dap = require 'dap'
     local dapui = require 'dapui'
+    -- Function to get the pipenv Python path
+      local function get_pipenv_python()
+        local handle = io.popen('pipenv --venv 2>/dev/null')
+        if handle == nil then
+          return nil
+        end
+        local result = handle:read("*a")
+        handle:close()
+        local venv_path = vim.fn.trim(result)
+        if venv_path == '' then
+          return nil
+        else
+          return venv_path .. '/bin/python'
+        end
+      end
 
+      -- Set up DAP adapter for Python using pipenv
+      dap.adapters.python = {
+        type = 'executable',
+        command = get_pipenv_python() or '/usr/bin/python3',  -- Use pipenv Python if available, otherwise global
+        args = { '-m', 'debugpy.adapter' },
+      }
+
+      dap.configurations.python = {
+        {
+          type = 'python',
+          request = 'launch',
+          name = 'Launch file',
+          program = '${file}',
+          pythonPath = get_pipenv_python() or '/usr/bin/python3',  -- Use pipenv Python if available, otherwise global
+        },
+      }
     require('mason-nvim-dap').setup {
       -- Makes a best effort to setup the various debuggers with
       -- reasonable debug configurations
@@ -68,11 +99,11 @@ return {
 
     vim.keymap.set('n', '<F5>', function()
       dap.continue()
-      vim.cmd.Neotree 'toggle' -- this will toggle the Neo tree during debugging
+      --vim.cmd.Neotree 'toggle' -- this will toggle the Neo tree during debugging
     end)
     vim.keymap.set('n', '<F11>', dap.step_into, { desc = 'DEBUG: Step into' })
     vim.keymap.set('n', '<F10>', dap.step_over, { desc = 'DEBUG: Step over' })
-    vim.keymap.set('n', '<S-F11>', dap.step_out, { desc = 'DEBUG: Step out' })
+    vim.keymap.set('n', '<F4>', dap.step_out, { desc = 'DEBUG: Step out' })
     vim.keymap.set('n', '<F9>', dap.toggle_breakpoint, { desc = 'DEBUG: Toggle breakpoint' })
     vim.keymap.set('n', '<leader>B', function()
       dap.set_breakpoint(vim.fn.input 'Breakpoint condition: ')
