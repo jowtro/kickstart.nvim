@@ -14,7 +14,24 @@ return function()
       console= "integratedTerminal",
     })
     --]]
-
+  -- insert remote Atach configuration
+  table.insert(require('dap').configurations.python, {
+    -- This is the same configuration as in your VSCode file
+    name = 'Python: Remote Attach',
+    type = 'python',
+    request = 'attach',
+    connect = {
+      host = '127.0.0.1',
+      port = 5678,
+    },
+    pathMappings = {
+      {
+        localRoot = vim.fn.getcwd(), -- Maps to the current working directory in Neovim
+        remoteRoot = '.', -- Adjust this to match your remote directory structure
+      },
+    },
+    justMyCode = true,
+  })
   table.insert(require('dap').configurations.python, {
     name = 'Pytest: Current File',
     type = 'python',
