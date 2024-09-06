@@ -1,6 +1,6 @@
 return function()
-  --local python_install_path = vim.fn.exepath('python')
-  require('dap-python').setup() -- Debug with default settings.
+  local python_install_path = "/home/jowtro/.local/share/nvim/mason/packages/debugpy/venv/bin/python"
+  require('dap-python').setup(python_install_path) -- Debug with default settings.
 
   -- We can set additional custom config by below mechanism as well
   --[[
